@@ -46,6 +46,8 @@ func main() {
 		fyne.LogError("Failed to read pty", err)
 	}
 
+	ui.SetText(string(b)) // set text to display
+	//
 	// Fixed-size cells so the grid doesn't stretch when the window is resized.
 	w.SetContent(
 		container.New(
