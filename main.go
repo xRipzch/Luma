@@ -7,6 +7,7 @@ import (
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
 	"github.com/creack/pty"
@@ -36,8 +37,7 @@ func main() {
 	// Quick smoke test: type "ls" and hit enter (\r, since that's what a
 	// real Enter key sends).
 	p.Write([]byte("ls\r"))
-	// Hacky: just wait and hope bash has answered by then. Fine for a
-	// prototype, but this should become a proper read loop.
+
 	time.Sleep(1 * time.Second)
 	// Only grabs the first 1KB of output, and we don't show it anywhere yet.
 	b := make([]byte, 1024)
@@ -48,7 +48,7 @@ func main() {
 
 	// Fixed-size cells so the grid doesn't stretch when the window is resized.
 	w.SetContent(
-		fyne.NewContainerWithLayout(
+		container.New(
 			layout.NewGridWrapLayout(fyne.NewSize(420, 200)),
 			ui,
 		),
